@@ -1,4 +1,36 @@
-let rawURL = `https://blog.ted.com/wp-json/wp/v2/posts?before=2022-07-05T05:10:55Z&per_page=10`;
+/// <reference types="node" />
+
+import * as cmdline from 'ts-command-line-args';
+
+interface ICopyFilesArguments{
+    url: string;
+    feedStartDate: Date;
+    matchingDate: Date;
+    help?: boolean;
+}
+
+function parseDate(value: any) {
+    return new Date(Date.parse(value));
+}
+
+let commands = cmdline.parse<ICopyFilesArguments>({
+    url: { type: String, alias: "u", optional: true },
+    feedStartDate: { type: parseDate, optional: true },
+    matchingDate: { type: parseDate, optional: true },
+    help: { type: Boolean, optional: true, alias: 'h', description: 'Prints this usage guide' },
+},
+{
+    helpArg: 'help',
+    headerContentSections: [{ header: 'Feed Winder', content: 'A tool for time-shifting feeds, starting with any WordPress site.' }],
+    // footerContentSections: [{ header: 'Footer', content: `Copyright: Big Faceless Corp. inc.` }],
+});
+
+console.log('Commands:', commands);
+
+let s = commands.feedStartDate.toISOString();
+let rawURL = `${commands.url}/wp-json/wp/v2/posts?before=${s}&per_page=10`;
+
+console.log('URL:', rawURL);
 
 fetch(rawURL)
     .then(response => {
@@ -7,3 +39,5 @@ fetch(rawURL)
     .then(s => {
         console.log(s);
     });
+
+// TODO: Use feed to turn this into a rss feed - https://github.com/jpmonette/feed
