@@ -4,10 +4,12 @@
     "typescript": "^4.9.4"
   },
   "scripts": {
-    "feedwinder": "npx tsc src/main.ts && node ./src/main.js -h",
+    "help": "npx tsc src/main.ts && node ./src/main.js -h",
     "test": "npx tsc src/main.ts && node ./src/main.js --url https://blog.ted.com/ --feedStartDate 7/5/2022 --matchingDate 7/5/2022"
   },
   "dependencies": {
-    "ts-command-line-args": "^2.3.1"
+    "@types/wpapi": "^1.1.1",
+    "ts-command-line-args": "^2.3.1",
+    "wpapi": "^1.2.2"
   }
 }

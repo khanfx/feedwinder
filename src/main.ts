@@ -1,6 +1,7 @@
 /// <reference types="node" />
 
 import * as cmdline from 'ts-command-line-args';
+let WPAPI = require('wpapi');
 
 interface ICopyFilesArguments{
     url: string;
@@ -27,6 +28,8 @@ let commands = cmdline.parse<ICopyFilesArguments>({
 
 console.log('Commands:', commands);
 
+/*
+
 let s = commands.feedStartDate.toISOString();
 let rawURL = `${commands.url}/wp-json/wp/v2/posts?before=${s}&per_page=10`;
 
@@ -38,6 +41,14 @@ fetch(rawURL)
     })
     .then(s => {
         console.log(s);
+    });
+
+*/
+
+var wp = new WPAPI({ endpoint: commands.url });
+wp.posts().get()
+    .then(posts => {
+        console.log(posts);
     });
 
 // TODO: Use feed to turn this into a rss feed - https://github.com/jpmonette/feed

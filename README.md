@@ -18,8 +18,6 @@ http://feedwinder.com/api?started_on=DATE&matching_date=DATE&feed=ENCODEDFEEDURL
 
 Package: https://github.com/jpmonette/feed
 
-And for CLI: https://github.com/Roaders/ts-command-line-args
-
 # Gotchas
 
 SELF_SIGNED_CERT_IN_CHAIN or UNABLE_TO_GET_ISSUER_CERT error
